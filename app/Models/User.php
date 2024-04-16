@@ -67,4 +67,9 @@ class User extends Authenticatable
         'public_flags' => 'integer',
         'roles' => 'json',
     ];
+
+    public function articles()
+    {
+        return $this->hasMany(Event::class);
+    }
 }
