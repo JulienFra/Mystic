@@ -7,10 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Event extends Model
 {
-    use HasFactory;
+    protected $fillable = ['title', 'game_id', 'body', 'occurs_at', 'img_path', 'participants_limit'];
 
-    public function user()
+    public function game()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Game::class);
+    }
+
+    public function participants()
+    {
+        return $this->hasMany(Participant::class);
     }
 }

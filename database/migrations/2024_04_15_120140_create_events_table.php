@@ -14,11 +14,12 @@ return new class extends Migration
         Schema::create('events', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('game');
+            $table->unsignedBigInteger('game_id');
+            $table->foreign('game_id')->references('id')->on('games')->onDelete('cascade');
             $table->text('body');
+            $table->integer('participants_limit')->nullable();
             $table->timestampTz('occurs_at');
-            $table->string('img_path')->nullable();
-            $table->timestampTz('published_at')->nullable();
+            $table->string('img_path');
             $table->timestamps();
         });
     }

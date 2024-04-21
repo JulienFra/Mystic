@@ -68,8 +68,12 @@ class User extends Authenticatable
         'roles' => 'json',
     ];
 
-    public function articles()
+    public function event()
     {
         return $this->hasMany(Event::class);
+    }
+    public function games()
+    {
+        return $this->belongsToMany(Game::class);
     }
 }
