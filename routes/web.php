@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\GameController;
+use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -41,8 +42,18 @@ Route::middleware('auth', 'check.role')->group(function () {
     Route::get('/game/{id}', [GameController::class, 'show'])->name('game.show');
     Route::get('/game', [GameController::class, 'index'])->name('game');
     Route::post('/game', [GameController::class, 'store'])->name('game.store');
-
 });
+
+Route::get('/news/{id}', [NewsController::class, 'show'])->name('news.show');
+Route::get('/news', [NewsController::class, 'index'])->name('news');
+
+Route::middleware('auth', 'check.role')->group(
+    function () {
+        Route::get('/news/create', [NewsController::class, 'create'])->name('news.create');
+        Route::post('/news', [NewsController::class, 'store'])->name('news.store');
+
+    });
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');

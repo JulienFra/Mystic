@@ -11,15 +11,26 @@ use Illuminate\Support\Facades\Auth;
 
 class EventController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $events = Event::paginate(5);
-        $users = User::all();
+        // Vérifier si la case à cocher est cochée
+        $participating = $request->has('participating');
 
-        return view('event.index', [
-            'events' => $events,
-            'users' => $users,
-        ]);
+        // Récupérer tous les événements
+        $eventsQuery = Event::query();
+
+        // Si la case à cocher est cochée, filtrer les événements pour ceux auxquels l'utilisateur participe
+        if ($participating) {
+            $eventsQuery->whereHas('participants', function ($query) {
+                $query->where('user_id', auth()->id());
+            });
+        }
+
+        // Paginer les résultats
+        $events = $eventsQuery->paginate(5);
+
+        // Renvoyer la vue avec les événements filtrés
+        return view('event.index', compact('events', 'participating'));
     }
 
     public function show(Event $event)
@@ -77,7 +88,6 @@ class EventController extends Controller
 
         $event->update($request->all());
 
-        // Traitement de l'image s'il y en a une
         if ($request->hasFile('img_path')) {
             $imagePath = $request->file('img_path')->store('images/events');
             $event->img_path = $imagePath;
@@ -95,9 +105,7 @@ class EventController extends Controller
 
     public function participate(Event $event)
     {
-        // Vérifier si le nombre maximum de participants n'est pas atteint
         if ($event->participants->count() < $event->participants_limit) {
-            // Ajouter l'utilisateur actuel en tant que participant à l'événement
             Participant::create([
                 'event_id' => $event->id,
                 'user_id' => auth()->id(),
@@ -114,7 +122,6 @@ class EventController extends Controller
         $user = auth()->user();
 
         if ($user) {
-            // Supprimer l'utilisateur de la liste des participants s'il est inscrit
             $participant = $event->participants()->where('user_id', $user->id)->first();
             if ($participant) {
                 $participant->delete();
