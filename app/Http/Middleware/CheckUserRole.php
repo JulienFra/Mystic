@@ -25,7 +25,7 @@ class CheckUserRole
         } else {
             // Si les rôles ne sont pas en cache, récupère-les et met-les en cache
             $userRoles = Auth::user()->getGuildMember($guildId)->roles;
-            Cache::put($cacheKey, $userRoles, now()->addMinutes(60)); // Met en cache pendant 60 minutes
+            Cache::put($cacheKey, $userRoles, now()->addMinutes(1)); // Met en cache pendant 60 minutes
         }
 
         $hasPermission = false;

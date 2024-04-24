@@ -13,23 +13,20 @@ class EventController extends Controller
 {
     public function index(Request $request)
     {
-        // Vérifier si la case à cocher est cochée
         $participating = $request->has('participating');
 
-        // Récupérer tous les événements
         $eventsQuery = Event::query();
 
-        // Si la case à cocher est cochée, filtrer les événements pour ceux auxquels l'utilisateur participe
         if ($participating) {
             $eventsQuery->whereHas('participants', function ($query) {
                 $query->where('user_id', auth()->id());
             });
         }
 
-        // Paginer les résultats
-        $events = $eventsQuery->paginate(5);
+        $eventsQuery->orderBy('occurs_at', 'desc');
 
-        // Renvoyer la vue avec les événements filtrés
+        $events = $eventsQuery->paginate(6);
+
         return view('event.index', compact('events', 'participating'));
     }
 
@@ -89,7 +86,7 @@ class EventController extends Controller
         $event->update($request->all());
 
         if ($request->hasFile('img_path')) {
-            $imagePath = $request->file('img_path')->store('images/events');
+            $imagePath = $request->file('img_path')->store('images', 'public');
             $event->img_path = $imagePath;
             $event->save();
         }

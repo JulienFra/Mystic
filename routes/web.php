@@ -21,6 +21,8 @@ Route::get('/', function () {
     return view('homepage');
 })->name('homepage');
 
+Route::view('/legal', 'legal')->name('legal');
+
 Route::middleware('auth', 'check.role')->group(function () {
     Route::get('/event/create', [EventController::class, 'create'])->name('event.create');
     Route::delete('/event/{event}', [EventController::class, 'destroy'])->name('event.destroy');
@@ -44,16 +46,17 @@ Route::middleware('auth', 'check.role')->group(function () {
     Route::post('/game', [GameController::class, 'store'])->name('game.store');
 });
 
-Route::get('/news/{id}', [NewsController::class, 'show'])->name('news.show');
-Route::get('/news', [NewsController::class, 'index'])->name('news');
+
 
 Route::middleware('auth', 'check.role')->group(
     function () {
         Route::get('/news/create', [NewsController::class, 'create'])->name('news.create');
         Route::post('/news', [NewsController::class, 'store'])->name('news.store');
-
-    });
-
+        Route::delete('/news/{news}', [NewsController::class, 'destroy'])->name('news.destroy');
+    }
+);
+Route::get('/news/{id}', [NewsController::class, 'show'])->name('news.show');
+Route::get('/news', [NewsController::class, 'index'])->name('news');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

@@ -9,7 +9,7 @@ class NewsController extends Controller
 {
     public function index()
     {
-        $news = News::paginate(10);
+        $news = News::paginate(9);
 
         return view('news.index', compact('news'));
     }
@@ -39,5 +39,10 @@ class NewsController extends Controller
     {
         $news = News::findOrFail($id);
         return view('news.show', compact('news'));
+    }
+    public function destroy(News $news)
+    {
+        $news->delete();
+        return redirect()->route('news')->with('success', 'News deleted successfully.');
     }
 }

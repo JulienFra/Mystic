@@ -27,6 +27,23 @@ class UserRolesServiceProvider extends ServiceProvider
                 $userId = Auth::id();
                 $guildId = '1221755631401304064';
                 $cacheKey = "user_roles_{$userId}_{$guildId}";
+                $guildsCacheKey = "user_guilds_{$userId}";
+
+                if (Cache::has($guildsCacheKey)) {
+                    $guildServers = Cache::get($guildsCacheKey);
+                } else {
+                    $guildServers = Auth::user()->getGuilds();
+                    Cache::put($guildsCacheKey, $guildServers, now()->addMinutes(1));
+                }
+                $isInServer = false;
+                
+                foreach ($guildServers as $guildServer) {
+                    if ($guildServer->id == $guildId) {
+                        $isInServer = true;
+                        break;
+                    }
+                }
+                if ($isInServer) {
 
                 if (Cache::has($cacheKey)) {
                     $userRoles = Cache::get($cacheKey);
@@ -43,11 +60,17 @@ class UserRolesServiceProvider extends ServiceProvider
                     }
                 }
 
-                // Retourner un tableau associatif contenant les données
                 $view->with([
                     'userRoles' => $userRoles,
                     'hasPermission' => $hasPermission
                 ]);
+            }
+                else {
+                    $view->with([
+                        'userRoles' => [],
+                        'hasPermission' => false
+                    ]);
+                }
             }
         });
     }

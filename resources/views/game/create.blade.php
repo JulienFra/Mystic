@@ -1,40 +1,22 @@
 <x-app-layout>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">Add Game</div>
-                    <div class="card-body">
-                        <form method="POST" action="{{ route('game.store') }}">
-                            @csrf
+    <div class="bg-gradient-to-br from-purple-900 to-indigo-900 min-h-screen flex flex-col justify-start items-center rounded m-8">
+        <div class="container mx-auto px-4 py-8 rounded-lg">
+            <h1 class="text-2xl font-bold text-white mb-4">Ajouter un jeu</h1>
+            <form method="POST" action="{{ route('game.store') }}">
+                @csrf
 
-                            <div class="form-group">
-                                <label for="name">Name</label>
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autofocus>
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        {{ $message }}
-                                    </span>
-                                @enderror
-                            </div>
-
-                            <div class="form-group">
-                                <label for="role_id">Role ID</label>
-                                <input id="role_id" type="text" class="form-control @error('role_id') is-invalid @enderror" name="role_id" value="{{ old('role_id') }}" required>
-                                @error('role_id')
-                                    <span class="invalid-feedback" role="alert">
-                                        {{ $message }}
-                                    </span>
-                                @enderror
-                            </div>
-
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-primary">Add Game</button>
-                            </div>
-                        </form>
-                    </div>
+                <div class="mb-12">
+                    <label for="name" class="block text-white font-bold mb-2">Jeu</label>
+                    <input id="name" type="text" class="form-input rounded-md border-gray-300" name="name" value="{{ old('name') }}" required autofocus>
                 </div>
-            </div>
+
+                <div class="mb-12">
+                    <label for="role_id" class="block text-white font-bold mb-2">Role ID</label>
+                    <input id="role_id" type="text" class="form-input rounded-md border-gray-300" name="role_id" value="{{ old('role_id') }}" required>
+                </div>
+
+                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md shadow-md hover:bg-blue-600 transition w-full">Ajouter le jeu</button>
+            </form>
         </div>
     </div>
 </x-app-layout>
