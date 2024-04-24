@@ -44,9 +44,9 @@ class EventController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|string|max:255',
+            'title' => 'required|string|max:30',
             'game_id' => 'required|exists:games,id',
-            'body' => 'required|string',
+            'body' => 'required|string|max:600',
             'occurs_at' => 'required|date',
             'participants_limit' => 'required|integer|min:0',
             'img_path' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -77,8 +77,8 @@ class EventController extends Controller
     public function update(Request $request, Event $event)
     {
         $request->validate([
-            'title' => 'required|string|max:255',
-            'body' => 'required|string',
+            'title' => 'required|string|max:30',
+            'body' => 'required|string|max:600',
             'occurs_at' => 'required|date',
             'img_path' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);

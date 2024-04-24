@@ -8,12 +8,13 @@
 
     <title>MysticCorp</title>
 
-    <!-- Fonts -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-2rI9JwsRm5smA7w6blkmOXsJai9W3jC7M/4jmA8Hu4p8f+GlMXozZoQl5D9Pb8H6NBl4d0uKmkW+F5BWOtgE6g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="icon" type="image/png" class="rounded" href="{{ asset('storage/images/mystic.png') }}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+        integrity="sha512-2rI9JwsRm5smA7w6blkmOXsJai9W3jC7M/4jmA8Hu4p8f+GlMXozZoQl5D9Pb8H6NBl4d0uKmkW+F5BWOtgE6g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
-    <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 

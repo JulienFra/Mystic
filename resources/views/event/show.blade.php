@@ -8,6 +8,7 @@
 
             <p class="text-gray-300 mb-2">Jeux: {{ $event->game->name }}</p>
             <p class="text-gray-300 mb-2">Date: {{ $event->occurs_at }}</p>
+            <p class="text-gray-300 mb-2">Participants: {{ $event->participants->count() }} / {{ $event->participants_limit }}</p>
             <div class="text-gray-300 mb-4 w-full">{{ $event->body }}</div>
             @auth
                 @php
