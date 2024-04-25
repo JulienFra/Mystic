@@ -8,7 +8,7 @@
 
                 <div class="mb-4">
                     <label for="title" class="block text-white font-bold mb-2">Titre</label>
-                    <input type="text" class="form-input rounded-md border-gray-300" id="title" name="title"
+                    <input type="text" class="form-input rounded-md border-gray-300 w-1/3" id="title" name="title"
                         required>
                 </div>
 
@@ -23,7 +23,7 @@
 
                 <div class="mb-4">
                     <label for="body" class="block text-white font-bold mb-2">Texte</label>
-                    <textarea class="form-textarea rounded-md border-gray-300" id="body" name="body" rows="5" required></textarea>
+                    <textarea class="form-textarea rounded-md border-gray-300 h-32 w-2/3" id="body" name="body" rows="5" required></textarea>
                 </div>
 
                 <div class="mb-4">
